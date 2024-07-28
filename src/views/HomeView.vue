@@ -38,6 +38,16 @@ interface Product {
 
 export default class HomeView extends Vue {
   items: Product[] = products;
+
+  getRootUrl() {
+    const { protocol, hostname, port } = window.location;
+    return `${protocol}//${hostname}${port ? `:${port}` : ''}`;
+  }
+
+  created(): void {
+    const rootUrl: string = this.getRootUrl();
+    this.items = this.items.map(item => ({...item, imageUrl: rootUrl+item.imageUrl}))
+  }
 }
 </script>
 

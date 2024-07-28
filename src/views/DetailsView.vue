@@ -1,5 +1,5 @@
 <template>
-  <div class="container-custom">
+  <div class="container-custom" v-if="!isRun">
     <div class="row py-5">
       <div class="col">
         <div v-if="product">
@@ -17,19 +17,27 @@
               <button class="btn btn-secondary btn-block" @click="goBack">Back</button>
             </div>
             <div class="col d-grid">
-              <button class="btn btn-primary btn-block" @click="goToRunPage">View</button>
+              <button class="btn btn-primary btn-block" @click="runARModel">View</button>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <div v-else>
+    <RunModel 
+      @close-modal="runARModel"
+      :marker-url="markerUrl"
+      :model-url="modelUrl"
+    />
+  </div>
 </template>
 
 <script lang="ts">
-import { Vue } from 'vue-class-component';
+import { Options, Vue } from 'vue-class-component';
+import { Watch } from 'vue-property-decorator';
 import products from '@/data/products.json';
-import router from '@/router';
+import RunModel from '@/components/RunModel.vue'
 
 interface Product {
   id: number;
@@ -37,21 +45,62 @@ interface Product {
   imageUrl: string;
 }
 
+@Options({
+  components: {
+    RunModel
+  }
+})
+
 export default class ProductDetail extends Vue {
   product: Product | undefined = undefined;
+  isRun = false;
+  markerUrl = '';
+  modelUrl = '' 
+
+  runARModel() {
+    this.isRun = !this.isRun
+  }
+
+  @Watch('isRun')
+  onShowModalChanged(newVal: boolean) {
+    if (!newVal) {
+      this.stopCamera();
+    }
+  }
+
+  stopCamera() {
+    try {
+      // Find and stop the video stream
+      const videoElements = document.querySelectorAll('video');
+      videoElements.forEach(videoElement => {
+        const stream = videoElement.srcObject as MediaStream;
+        if (stream) {
+          const tracks = stream.getTracks();
+          tracks.forEach(track => track.stop());
+        }
+        // Remove the video element from the DOM
+        videoElement.parentNode?.removeChild(videoElement);
+      });
+    } catch (error) {
+      console.error('Error stopping camera:', error);
+    }
+  }
+
+  getRootUrl() {
+    const { protocol, hostname, port } = window.location;
+    return `${protocol}//${hostname}${port ? `:${port}` : ''}`;
+  }
 
   created() {
+    const rootUrl: string = this.getRootUrl()
     const id = parseInt(this.$route.params.id as string, 10);
-    this.product = products.find(product => product.id === id);
-    console.log('this.product ', this.product);
+    this.product = products.map(item => ({...item, imageUrl: rootUrl + item.imageUrl})).find(product => product.id === id);
+    this.markerUrl = rootUrl + '/marker/hiro_marker'
+    this.modelUrl = rootUrl + '/marker/fi_buggy/scene.gltf'
   }
 
   goBack() {
     this.$router.go(-1); // Kembali ke halaman sebelumnya
-  }
-
-  goToRunPage() {
-    this.$router.push('/run')
   }
 }
 </script>
