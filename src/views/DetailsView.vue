@@ -38,6 +38,7 @@ import { Options, Vue } from 'vue-class-component';
 import { Watch } from 'vue-property-decorator';
 import products from '@/data/products.json';
 import RunModel from '@/components/RunModel.vue'
+import { getRootUrl } from '@/utils/helpers';
 
 interface Product {
   id: number;
@@ -86,13 +87,8 @@ export default class ProductDetail extends Vue {
     }
   }
 
-  getRootUrl() {
-    const { protocol, hostname, port } = window.location;
-    return `${protocol}//${hostname}${port ? `:${port}` : ''}`;
-  }
-
   created() {
-    const rootUrl: string = this.getRootUrl()
+    const rootUrl: string = getRootUrl();
     const id = parseInt(this.$route.params.id as string, 10);
     this.product = products.map(item => ({...item, imageUrl: rootUrl + item.imageUrl})).find(product => product.id === id);
     this.markerUrl = rootUrl + '/marker/hiro_marker'

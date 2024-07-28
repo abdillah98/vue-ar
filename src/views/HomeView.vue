@@ -23,6 +23,7 @@
 import { Options, Vue } from 'vue-class-component';
 import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
 import products from '@/data/products.json';
+import { getRootUrl } from '@/utils/helpers';
 
 interface Product {
   id: number;
@@ -39,13 +40,8 @@ interface Product {
 export default class HomeView extends Vue {
   items: Product[] = products;
 
-  getRootUrl() {
-    const { protocol, hostname, port } = window.location;
-    return `${protocol}//${hostname}${port ? `:${port}` : ''}`;
-  }
-
   created(): void {
-    const rootUrl: string = this.getRootUrl();
+    const rootUrl = getRootUrl();
     this.items = this.items.map(item => ({...item, imageUrl: rootUrl+item.imageUrl}))
   }
 }
