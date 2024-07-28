@@ -88,11 +88,13 @@ export default class ProductDetail extends Vue {
   }
 
   created() {
-    const rootUrl: string = getRootUrl();
+    const rootUrl = getRootUrl();
     const id = parseInt(this.$route.params.id as string, 10);
     this.product = products.map(item => ({...item, imageUrl: rootUrl + item.imageUrl})).find(product => product.id === id);
     this.markerUrl = rootUrl + '/marker/hiro_marker'
     this.modelUrl = rootUrl + '/marker/fi_buggy/scene.gltf'
+    console.log('this.markerUrl', this.markerUrl);
+    console.log('this.modelUrl', this.modelUrl);
   }
 
   goBack() {
