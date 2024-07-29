@@ -1,5 +1,6 @@
 <template>
-  <div class="container-custom">
+  <div class="container-custom pt-4">
+    <h1 class="fw-bolder">AR Gallery</h1>
     <div class="row py-5">
       <!-- {{ console.log(items[0].imageUrl) }} -->
       <div class="col-6 mb-4" v-for="item in items" :key="item.id">
@@ -23,7 +24,7 @@
 import { Options, Vue } from 'vue-class-component';
 import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
 import products from '@/data/products.json';
-import { getRootUrl } from '@/utils/helpers';
+import { getRootUrl, stopCamera } from '@/utils/helpers';
 
 interface Product {
   id: number;
@@ -43,6 +44,10 @@ export default class HomeView extends Vue {
   created(): void {
     const rootUrl = getRootUrl();
     this.items = this.items.map(item => ({...item, imageUrl: rootUrl+item.imageUrl}))
+  }
+  
+  mounted(): void {
+    stopCamera()
   }
 }
 </script>

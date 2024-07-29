@@ -11,13 +11,13 @@
           <p>Product not found</p>
         </div>
         <div class="card-overlay card rounded-3">
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nemo, assumenda laboriosam?</p>
+          <p>Do you want to display models in augmented reality?</p>
           <div class="row">
             <div class="col d-grid">
-              <button class="btn btn-secondary btn-block" @click="goBack">Back</button>
+              <button class="btn btn-secondary btn-block" @click="goBack">Not Now</button>
             </div>
             <div class="col d-grid">
-              <button class="btn btn-primary btn-block" @click="runARModel">View</button>
+              <button class="btn btn-primary btn-block" @click="runARModel">Yes</button>
             </div>
           </div>
         </div>
@@ -38,7 +38,7 @@ import { Options, Vue } from 'vue-class-component';
 import { Watch } from 'vue-property-decorator';
 import products from '@/data/products.json';
 import RunModel from '@/components/RunModel.vue'
-import { getRootUrl } from '@/utils/helpers';
+import { getRootUrl, stopCamera } from '@/utils/helpers';
 
 interface Product {
   id: number;
@@ -65,25 +65,7 @@ export default class ProductDetail extends Vue {
   @Watch('isRun')
   onShowModalChanged(newVal: boolean) {
     if (!newVal) {
-      this.stopCamera();
-    }
-  }
-
-  stopCamera() {
-    try {
-      // Find and stop the video stream
-      const videoElements = document.querySelectorAll('video');
-      videoElements.forEach(videoElement => {
-        const stream = videoElement.srcObject as MediaStream;
-        if (stream) {
-          const tracks = stream.getTracks();
-          tracks.forEach(track => track.stop());
-        }
-        // Remove the video element from the DOM
-        videoElement.parentNode?.removeChild(videoElement);
-      });
-    } catch (error) {
-      console.error('Error stopping camera:', error);
+      stopCamera()
     }
   }
 
