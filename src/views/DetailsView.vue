@@ -25,11 +25,12 @@
     </div>
   </div>
   <div v-else>
-    <RunModel 
+    <run-model-2 @close-modal="runARModel"/>
+    <!-- <RunModel 
       @close-modal="runARModel"
       :marker-url="markerUrl"
       :model-url="modelUrl"
-    />
+    /> -->
   </div>
 </template>
 
@@ -37,7 +38,7 @@
 import { Options, Vue } from 'vue-class-component';
 import { Watch } from 'vue-property-decorator';
 import products from '@/data/products.json';
-import RunModel from '@/components/RunModel.vue'
+import RunModel2 from '@/components/RunModel.vue'
 import { getRootUrl, stopCamera } from '@/utils/helpers';
 
 interface Product {
@@ -48,7 +49,7 @@ interface Product {
 
 @Options({
   components: {
-    RunModel
+    RunModel2
   }
 })
 
