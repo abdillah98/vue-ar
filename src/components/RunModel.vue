@@ -19,7 +19,7 @@
       <!-- the path should end with the name without the extension e.g. if file is 'pinball.fset' the path should end with 'pinball' -->
       <a-nft
         type="nft"
-        :url="markerUrl"
+        url="marker/hiro_marker"
         smooth="true"
         smoothCount="10"
         smoothTolerance=".01"
@@ -27,7 +27,7 @@
       >
         <!-- as a child of the a-nft entity, you can define the content to show. here's a GLTF model entity -->
         <a-entity
-          :gltf-model="modelUrl"
+          gltf-model="/marker/fi_buggy/scene.gltf"
           scale="5 5 5"
           position="50 150 0"
         >
