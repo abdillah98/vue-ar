@@ -38,7 +38,7 @@
 import { Options, Vue } from 'vue-class-component';
 import { Watch } from 'vue-property-decorator';
 import products from '@/data/products.json';
-import RunModel2 from '@/components/RunModel.vue'
+import RunModel2 from '@/components/RunModel2.vue'
 import { getRootUrl, stopCamera } from '@/utils/helpers';
 
 interface Product {

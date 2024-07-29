@@ -1,16 +1,8 @@
 <template>
-  <div class="container-ar">
-    <div class="close">
-      <button class="btn-close" @click="$emit('closeModal')"></button>
-    </div>
-    <div class="arjs-loader">
-      <div>Loading, please wait...</div>
-    </div>
-    <a-scene embedded arjs='sourceType: webcam;'>
-      <a-box position='0 0.5 0' color="#EF2D5E"></a-box>
-      <a-marker-camera preset='hiro'></a-marker-camera>
-    </a-scene>
-  </div>
+  <a-scene embedded arjs='sourceType: webcam;'>
+    <a-box position='0 0.5 0' color="#EF2D5E"></a-box>
+    <a-marker-camera preset='hiro'></a-marker-camera>
+  </a-scene>
 </template>
 
 <script lang="ts">
