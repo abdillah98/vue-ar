@@ -19,7 +19,7 @@
       <!-- the path should end with the name without the extension e.g. if file is 'pinball.fset' the path should end with 'pinball' -->
       <a-nft
         type="nft"
-        url="marker/hiro_marker"
+        url="marker/book_marker"
         smooth="true"
         smoothCount="10"
         smoothTolerance=".01"
@@ -29,7 +29,7 @@
         <a-entity
           gltf-model="/marker/fi_buggy/scene.gltf"
           scale="5 5 5"
-          position="50 150 0"
+          position="120 120 0"
         >
         </a-entity>
       </a-nft>
