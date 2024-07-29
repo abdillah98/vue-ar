@@ -1,9 +1,9 @@
 const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
   transpileDependencies: true,
-  publicPath: process.env.NODE_ENV === 'production'
-    ? '/vue-ar/'
-    : '/',
+  // publicPath: process.env.NODE_ENV === 'production'
+  //   ? '/vue-ar/'
+  //   : '/',
   devServer: {
     allowedHosts: 'all', // Mengizinkan semua host
   }
